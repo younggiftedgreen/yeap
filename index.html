@@ -262,19 +262,24 @@
   .doe-step.phantom-step {
     border-color: var(--ygg-orange);
     box-shadow: 4px 4px 0 var(--ygg-orange);
-    margin-top: 34px;
-    position: relative;
+    margin-top: 40px;
+    overflow: visible;
   }
   .doe-step.phantom-step .phantom-ribbon {
-    display: inline-block;
-    position: absolute; top: -14px; left: 14px;
+    display: block;
+    width: fit-content;
+    margin: -32px auto 10px 14px;
     background: var(--ygg-orange); color: var(--ink);
     font-family: 'Fredoka', sans-serif; font-weight: 700;
-    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 4px 10px; border-radius: 999px;
+    font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 5px 12px; border-radius: 999px;
     white-space: nowrap;
-    z-index: 2;
     border: 2px solid var(--ink);
+    position: relative;
+    z-index: 2;
+  }
+  .doe-step.phantom-step .doe-step-body {
+    overflow: hidden;
   }
   .doe-step.phantom-step .doe-step-header {
     background: var(--ygg-orange); color: var(--ink);
