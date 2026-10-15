@@ -258,11 +258,70 @@
     margin-bottom: 12px; overflow: hidden;
     box-shadow: 4px 4px 0 var(--ink);
   }
+  /* Phantom Loads: visually distinct from the DOE 7 areas */
+  .doe-step.phantom-step {
+    border-color: var(--ygg-orange);
+    box-shadow: 4px 4px 0 var(--ygg-orange);
+    margin-top: 34px;
+    position: relative;
+  }
+  .doe-step.phantom-step .phantom-ribbon {
+    display: inline-block;
+    position: absolute; top: -14px; left: 14px;
+    background: var(--ygg-orange); color: var(--ink);
+    font-family: 'Fredoka', sans-serif; font-weight: 700;
+    font-size: 10px; letter-spacing: 0.06em; text-transform: uppercase;
+    padding: 4px 10px; border-radius: 999px;
+    white-space: nowrap;
+    z-index: 2;
+    border: 2px solid var(--ink);
+  }
+  .doe-step.phantom-step .doe-step-header {
+    background: var(--ygg-orange); color: var(--ink);
+  }
+  .doe-step.phantom-step .doe-step-num {
+    background: var(--ink); color: var(--ygg-orange);
+    font-size: 16px;
+  }
+  .doe-step.phantom-step .doe-step-toggle {
+    color: var(--ink);
+  }
+  /* Extra Notes to Share section */
+  .occupant-card {
+    background: var(--ygg-cream-lt);
+    border-color: var(--ygg-green);
+    box-shadow: 5px 5px 0 var(--ygg-green);
+  }
+  .occupant-card label {
+    font-size: 14px;
+  }
+  .occupant-card textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 2px solid var(--ink);
+    border-radius: 10px;
+    background: var(--paper);
+    font-family: inherit;
+    font-size: 14px;
+    color: var(--ink);
+    resize: vertical;
+    min-height: 60px;
+  }
+  .occupant-card textarea:focus {
+    outline: none;
+    border-color: var(--ygg-orange);
+  }
+  .field-help {
+    font-size: 12px;
+    color: var(--gray);
+    margin-top: 4px;
+    font-style: italic;
+  }
   .doe-step-header {
-    padding: 14px 16px;
+    padding: 14px 14px 14px 14px;
     background: var(--ink); color: var(--paper);
     cursor: pointer;
-    display: flex; align-items: center; gap: 12px;
+    display: flex; align-items: center; gap: 10px;
     user-select: none;
   }
   .doe-step-num {
@@ -274,7 +333,7 @@
   }
   .doe-step-title {
     font-family: 'Fredoka', sans-serif; font-weight: 600;
-    font-size: 15px; flex: 1;
+    font-size: 15px; flex: 1; min-width: 0;
   }
   .doe-step-title small {
     display: block; font-size: 11px; opacity: 0.75; font-weight: 500;
@@ -285,6 +344,13 @@
     background: var(--ygg-green); color: var(--paper);
     padding: 3px 9px; border-radius: 999px;
     flex-shrink: 0;
+    white-space: nowrap;
+  }
+  @media (max-width: 420px) {
+    .doe-step-header { padding: 12px 10px; gap: 8px; }
+    .doe-step-title { font-size: 14px; }
+    .doe-step-progress { font-size: 11px; padding: 2px 7px; }
+    .doe-step-num { width: 24px; height: 24px; font-size: 12px; }
   }
   .doe-step-toggle {
     font-family: 'Fredoka', sans-serif; font-size: 18px;
@@ -466,7 +532,7 @@
 
   /* FINISH BUTTON */
   .finish-btn {
-    display: none;
+    display: block;
     width: 100%;
     background: var(--ygg-orange); color: var(--ink);
     font-family: 'Fredoka', sans-serif; font-weight: 700;
@@ -478,7 +544,7 @@
     transition: transform 0.1s, box-shadow 0.1s;
   }
   .finish-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--ygg-orange-dk); }
-  .report-card.ready .finish-btn { display: block; }
+  .report-card.ready .finish-btn { box-shadow: 0 5px 0 var(--ygg-orange-dk), 0 0 0 3px rgba(149,193,31,0.4); }
 
   .report-actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px; }
   .ygg-cc-box {
@@ -648,12 +714,12 @@
 <section class="hero">
   <span class="doe-badge">DOE DIY Energy Assessment Model</span>
   <h1>Conduct a real <span class="accent">energy assessment.</span></h1>
-  <p class="lede">YEAP is YGG's Youth Energy Assessor Program. This is the field tool assessors use during real-time walk-throughs of homes and businesses. Walk through the 6 DOE-aligned steps, document findings, and generate a recommendation report on the spot.</p>
+  <p class="lede">YEAP is YGG's Youth Energy Assessor Program. This is the field tool assessors use during real-time walk-throughs of homes and businesses. Walk through the 7 DOE-aligned assessment areas, document findings, and generate a recommendation report on the spot.</p>
 </section>
 
 <!-- MODE SELECTOR -->
 <section id="mode">
-  <span class="step-label">Step 1 of 4 · Choose Assessment Type</span>
+  <span class="step-label">Step 1 of 5 · Choose Assessment Type</span>
   <div class="section-heading">
     <h2>What are you assessing today?</h2>
   </div>
@@ -663,7 +729,7 @@
     <button class="mode-card" data-mode="residential">
       <div class="icon">🏠</div>
       <h3>Residential</h3>
-      <p>Single-family homes, apartments, duplexes. DOE 6-step home assessment.</p>
+      <p>Single-family homes, apartments, duplexes. DOE 7-area home assessment.</p>
       <div class="examples">Examples: detached house, rental unit, condo</div>
     </button>
     <button class="mode-card" data-mode="commercial">
@@ -677,7 +743,7 @@
 
 <!-- CONSENT / PROPERTY INFO -->
 <section id="consent" class="gated">
-  <span class="step-label">Step 2 of 4 · Consent &amp; Property Info</span>
+  <span class="step-label">Step 2 of 5 · Consent &amp; Property Info</span>
   <div class="section-heading">
     <h2>Get permission &amp; log the site</h2>
   </div>
@@ -792,7 +858,7 @@
 
 <!-- TOOLS -->
 <section id="tools" class="gated">
-  <span class="step-label">Step 3 of 4 · Field Tools</span>
+  <span class="step-label">Step 3 of 5 · Field Tools</span>
   <div class="section-heading">
     <h2>Tools for the walk-through</h2>
   </div>
@@ -814,15 +880,44 @@
   </div>
 </section>
 
-<!-- ASSESSMENT (DOE 6 STEPS) -->
+<!-- ASSESSMENT (DOE 7 AREAS + PHANTOM LOADS) -->
 <section id="assessment" class="gated">
-  <span class="step-label">Step 4 of 4 · DOE 6-Step Walk-Through</span>
+  <span class="step-label">Step 4 of 5 · DOE 7-Area Walk-Through</span>
   <div class="section-heading">
     <h2>The assessment</h2>
   </div>
-  <p class="lede" style="font-size:15px;">Work through each DOE category. Tap an item when you find or confirm the issue. Add field notes per finding.</p>
+  <p class="lede" style="font-size:15px;">Work through each DOE assessment area (steps 1 to 7). Phantom Loads is a separate section at the end, after the DOE 7. Tap an item when you find or confirm the issue. Add field notes per finding.</p>
 
   <div id="steps"></div>
+</section>
+
+<!-- EXTRA NOTES TO SHARE -->
+<section id="occupant-notes-sec" class="gated">
+  <span class="step-label">Step 5 of 5 · Extra Notes to Share</span>
+  <div class="section-heading">
+    <h2>Extra notes to share</h2>
+  </div>
+  <p class="lede" style="font-size:15px;">Use this section for anything that didn't fit into the 7 DOE areas or Phantom Loads. Nothing here changes the savings estimate. These notes go straight to the resident or business owner in their report.</p>
+
+  <div class="card occupant-card">
+    <div class="field">
+      <label for="occupant-positives">👏 What they're already doing well</label>
+      <textarea id="occupant-positives" rows="3" placeholder="e.g. All bulbs are already LEDs. Thermostat is set back at night. Fridge is a 2023 ENERGY STAR model."></textarea>
+      <div class="field-help">Give them credit for the good habits you noticed.</div>
+    </div>
+
+    <div class="field">
+      <label for="occupant-recommendations">💡 Extra tips and ideas</label>
+      <textarea id="occupant-recommendations" rows="3" placeholder="e.g. Try planting shade trees on the south side. Switch to cold-water laundry. Replace furnace filter every 3 months."></textarea>
+      <div class="field-help">General energy or carbon-footprint ideas that don't match a specific finding above.</div>
+    </div>
+
+    <div class="field">
+      <label for="occupant-other">📝 Anything else to pass along</label>
+      <textarea id="occupant-other" rows="3" placeholder="e.g. Resident mentioned recent high bills. Water pressure seems low at the kitchen faucet. HVAC unit looks like 1990s but no visible model info."></textarea>
+      <div class="field-help">Other observations worth sharing with the household or business.</div>
+    </div>
+  </div>
 </section>
 
 <!-- SUMMARY -->
@@ -843,14 +938,15 @@
     <p id="summaryMsg" style="font-size:13.5px; margin-top:14px; opacity:0.95;">Start the walk-through above. Tap each item you find or confirm.</p>
 
     <div class="step-coverage">
-      <div class="step-coverage-label">DOE Step Coverage</div>
+      <div class="step-coverage-label">DOE Step Coverage (7 areas)</div>
       <div class="step-dots" id="stepDots">
-        <div class="step-dot" data-step="1" title="Envelope">1</div>
-        <div class="step-dot" data-step="2" title="Insulation">2</div>
-        <div class="step-dot" data-step="3" title="HVAC">3</div>
-        <div class="step-dot" data-step="4" title="Lighting">4</div>
-        <div class="step-dot" data-step="5" title="Appliances">5</div>
-        <div class="step-dot" data-step="6" title="Water">6</div>
+        <div class="step-dot" data-step="1" title="Air Sealing">1</div>
+        <div class="step-dot" data-step="2" title="Building Envelope">2</div>
+        <div class="step-dot" data-step="3" title="Insulation">3</div>
+        <div class="step-dot" data-step="4" title="Heating &amp; Cooling">4</div>
+        <div class="step-dot" data-step="5" title="Lighting">5</div>
+        <div class="step-dot" data-step="6" title="Appliances">6</div>
+        <div class="step-dot" data-step="7" title="Water Heating">7</div>
       </div>
     </div>
   </div>
@@ -864,24 +960,27 @@
   <p class="lede" style="font-size:15px;">When the walk-through is complete, generate the recommendation report and deliver it to the resident or business contact.</p>
 
   <div class="report-card" id="reportCard">
-    <div class="ready-banner">🏁 You've covered all 6 DOE steps. Ready to finish!</div>
-    <h3>📨 Deliver report</h3>
-    <p class="helper">View &amp; print produces a clean PDF-ready document. Email opens a pre-filled draft in your mail app. Both include all findings, recommended fixes, estimated savings, and national energy-assistance resources.</p>
+    <div class="ready-banner">🏁 You've covered all 7 DOE assessment areas. Ready to finish!</div>
+    <h3>📨 Deliver the report</h3>
+    <p class="helper">One tap does it all: generates the PDF-ready report, opens the Print/Save-as-PDF dialog, and launches your email draft with both the resident and YGG as recipients.</p>
 
     <div class="ygg-cc-box">
       <div class="ygg-cc-icon">📁</div>
       <div class="ygg-cc-text">
-        <strong>A copy of every emailed report is automatically sent to YGG</strong>
-        <span>CC: <code>info@younggiftedgreen.org</code> — for program records, follow-up coordination, and reporting. You'll see this address in the CC field when your mail app opens.</span>
+        <strong>Every report is automatically delivered to YGG</strong>
+        <span>Resident email + CC to <code>info@younggiftedgreen.org</code> for program records and follow-up. Both addresses pre-fill in your email draft.</span>
       </div>
     </div>
 
-    <button class="finish-btn" id="finishBtn">🏁 Finish Assessment &amp; Open Report</button>
+    <button class="finish-btn" id="finishBtn">🏁 Finish Assessment &amp; Send Report</button>
 
-    <div class="report-actions">
-      <button class="btn btn-green" id="viewReportBtn">📄 View / Print</button>
-      <button class="btn" id="emailReportBtn">📧 Email Contact + YGG</button>
-    </div>
+    <details style="margin-top: 14px;">
+      <summary style="cursor: pointer; font-size: 13px; color: var(--gray); font-family: 'Fredoka', sans-serif;">Need to send differently? Advanced options</summary>
+      <div class="report-actions" style="margin-top: 8px;">
+        <button class="btn btn-green btn-sm" id="viewReportBtn">📄 View / Print only</button>
+        <button class="btn btn-sm" id="emailReportBtn">📧 Email only (no PDF)</button>
+      </div>
+    </details>
     <div class="report-status" id="reportStatus"></div>
   </div>
 </section>
@@ -964,7 +1063,7 @@
 
       <p style="margin: 12px 0 8px;"><em>Common Core ELA &amp; Literacy in Science / Technical Subjects — Grades 6–12</em></p>
       <ul>
-        <li><strong>RST.6-8.3 / RST.9-10.3 / RST.11-12.3</strong> — Follow precisely a multistep technical procedure (the DOE 6-step assessment is exactly this)</li>
+        <li><strong>RST.6-8.3 / RST.9-10.3 / RST.11-12.3</strong> — Follow precisely a multistep technical procedure (the DOE 7-area assessment is exactly this)</li>
         <li><strong>RST.6-8.4 / RST.9-10.4 / RST.11-12.4</strong> — Determine the meaning of domain-specific words and symbols (R-value, kWh, weatherization, energy burden, thermal envelope, etc.)</li>
         <li><strong>RST.6-8.7 / RST.9-10.7 / RST.11-12.7</strong> — Integrate quantitative and technical information expressed in words, tables, and visuals (translating field observations into the structured report)</li>
         <li><strong>RST.6-8.9 / RST.9-10.9 / RST.11-12.9</strong> — Compare and integrate information from multiple sources (DOE guidelines, utility data, observed conditions)</li>
@@ -1051,129 +1150,163 @@
   const ASSESSMENT_DATA = {
     residential: [
       {
-        num: 1, title: "Air Leaks & Building Envelope",
-        sub: "Find where conditioned air escapes",
-        method: "Run a damp hand near edges of doors, windows, outlets, and attic hatches on a windy day. Look for visible gaps, compressed weatherstripping, and missing caulk. (DOE-approved simplified method.)",
+        num: 1, title: "Air Sealing",
+        sub: "Seal the leaks that waste conditioned air",
+        method: "Walk the perimeter. Run a damp hand along edges of doors, outlets on exterior walls, and any penetrations. Note where you feel movement, see light, or find compressed or missing weatherstripping. (DOE-approved simplified method.)",
         items: [
           { id: "door", title: "Exterior door drafts", desc: "Feel along the bottom and sides of exterior doors for air movement. Note any visible gaps in weatherstripping.", savings: 50, severity: "med", fix: "Add weatherstripping or a draft stopper. Critical in cold climates." },
-          { id: "windows", title: "Window air leaks", desc: "Touch window frames and sashes. Note ice-cold edges, condensation, or visible gaps. Common in pre-1980 housing.", savings: 100, severity: "hi", fix: "Caulk gaps; add weatherstripping; apply window film kit ($10-$15) or thermal curtains." },
-          { id: "outlets", title: "Outlet & switch plate drafts", desc: "Hold hand near outlets on exterior walls. Tiny drafts indicate gaps in wall insulation around the box.", savings: 30, severity: "low", fix: "Install foam outlet gaskets (under $5 per pack) behind plates on exterior walls." },
-          { id: "attic-hatch", title: "Attic hatch / scuttle seal", desc: "Inspect the attic access for weatherstripping and insulation. Open hatches are major heat-loss points.", savings: 150, severity: "hi", fix: "Add an attic hatch insulator cover and weatherstrip around the edge. High-impact in cold climates." },
-          { id: "fireplace", title: "Fireplace damper", desc: "If a fireplace is present, verify damper is closed when not in use. An open damper = a constantly open window.", savings: 80, severity: "med", fix: "Close damper when not in use; consider a chimney balloon for unused fireplaces." }
+          { id: "outlets", title: "Outlet and switch plate drafts", desc: "Hold hand near outlets on exterior walls. Tiny drafts indicate gaps in wall insulation around the box.", savings: 30, severity: "low", fix: "Install foam outlet gaskets (under $5 per pack) behind plates on exterior walls." },
+          { id: "fireplace", title: "Fireplace damper", desc: "If a fireplace is present, verify damper is closed when not in use. An open damper acts like a constantly open window.", savings: 80, severity: "med", fix: "Close damper when not in use; consider a chimney balloon for unused fireplaces." }
         ]
       },
       {
-        num: 2, title: "Insulation",
-        sub: "Assess thermal envelope performance",
-        method: "Visually inspect attic insulation depth (can you see the floor joists? = under-insulated). Check basement/crawlspace for exposed insulation. Touch interior walls on cold days for cold spots.",
+        num: 2, title: "Building Envelope",
+        sub: "Windows, doors, and the outer shell",
+        method: "Touch windows and door frames. Note single-pane glass, failed seals (fogging between panes), ice on interior frames in cold weather, and the condition of the attic hatch.",
+        items: [
+          { id: "windows", title: "Window air leaks", desc: "Touch window frames and sashes. Note ice-cold edges, condensation, or visible gaps. Common in pre-1980 housing.", savings: 100, severity: "hi", fix: "Caulk gaps; add weatherstripping; apply window film kit ($10 to $15) or thermal curtains." },
+          { id: "attic-hatch", title: "Attic hatch or scuttle seal", desc: "Inspect the attic access for weatherstripping and insulation. Open hatches are major heat loss points.", savings: 150, severity: "hi", fix: "Add an attic hatch insulator cover and weatherstrip around the edge. High impact in cold climates." }
+        ]
+      },
+      {
+        num: 3, title: "Insulation",
+        sub: "Thermal envelope performance",
+        method: "Visually inspect attic insulation depth (if floor joists are visible, the attic is under-insulated). Check basement and crawlspace for exposed or missing insulation. Touch interior walls on cold days for cold spots.",
         items: [
           { id: "attic-insul", title: "Attic insulation depth", desc: "If you can see the tops of the floor joists, the attic is under-insulated. DOE recommends R-30 in warm climates, R-49+ in cold (climate zones 4-7).", savings: 200, severity: "hi", fix: "Add blown-in cellulose or fiberglass to recommended depth. Your state's Weatherization Assistance Program may provide this free for income-eligible households." },
-          { id: "basement-insul", title: "Basement / rim joist insulation", desc: "Check rim joists (top edge of foundation where it meets the wall framing) for missing insulation. Major heat loss point.", savings: 90, severity: "med", fix: "Install rigid foam or spray foam at rim joists; insulate basement walls." }
+          { id: "basement-insul", title: "Basement or rim joist insulation", desc: "Check rim joists (top edge of foundation where it meets the wall framing) for missing insulation. Major heat loss point.", savings: 90, severity: "med", fix: "Install rigid foam or spray foam at rim joists; insulate basement walls." }
         ]
       },
       {
-        num: 3, title: "Heating & Cooling Systems",
+        num: 4, title: "Heating and Cooling Systems",
         sub: "HVAC efficiency and controls",
-        method: "Inspect furnace filter (gray/clogged?), thermostat settings (setback in use?), and visible ductwork in unconditioned spaces (gaps, disconnections, missing insulation).",
+        method: "Inspect furnace filter (gray or clogged?), thermostat settings (setback in use?), and visible ductwork in unconditioned spaces (gaps, disconnections, missing insulation).",
         items: [
-          { id: "filter", title: "Furnace filter condition", desc: "Locate the furnace filter. If gray, dusty, or clogged, system is working harder than needed.", savings: 75, severity: "med", fix: "Replace filter every 1-2 months during heating season. Filters $5-$20 at any hardware store." },
-          { id: "thermostat", title: "Thermostat setback", desc: "Check if thermostat is programmed to setback 7-10°F during sleep/away hours. Manual thermostats often aren't.", savings: 90, severity: "med", fix: "Set back 7-10°F when sleeping or away. DOE estimates 10% heating-bill savings. Smart thermostat ($100-$250) automates this." },
+          { id: "filter", title: "Furnace filter condition", desc: "Locate the furnace filter. If gray, dusty, or clogged, the system is working harder than needed.", savings: 75, severity: "med", fix: "Replace filter every 1 to 2 months during heating season. Filters $5 to $20 at any hardware store." },
+          { id: "thermostat", title: "Thermostat setback", desc: "Check if thermostat is programmed to set back 7 to 10 degrees F during sleep or away hours. Manual thermostats often are not.", savings: 90, severity: "med", fix: "Set back 7 to 10 degrees F when sleeping or away. DOE estimates 10% heating bill savings. Smart thermostat ($100 to $250) automates this." },
           { id: "duct-leaks", title: "Visible duct leaks", desc: "Inspect ductwork in basements, crawlspaces, attics. Note disconnected sections, gaps at joints, or dust streaks (signs of leaks).", savings: 120, severity: "hi", fix: "Seal joints with mastic sealant or UL-181 foil tape (NOT cloth duct tape). Insulate ducts in unconditioned spaces." }
         ]
       },
       {
-        num: 4, title: "Lighting",
-        sub: "Bulb inventory & controls",
+        num: 5, title: "Lighting",
+        sub: "Bulb inventory and controls",
         method: "Walk through and count fixtures. Identify incandescent (hot to touch), CFL (curly), and LED bulbs. Note exterior fixtures and whether they have timers or photocells.",
         items: [
-          { id: "bulbs", title: "Incandescent or CFL bulbs", desc: "Count fixtures still using incandescent or CFL bulbs. LEDs use ~85% less energy than incandescents.", savings: 80, severity: "med", fix: "Replace remaining incandescents/CFLs with ENERGY STAR LEDs. Many utilities offer free LEDs for income-eligible customers — check your utility's energy efficiency programs." },
-          { id: "exterior-lights", title: "Exterior lighting controls", desc: "Check if outdoor lights have timers, photocells, or motion sensors. Lights running all night = wasted energy.", savings: 25, severity: "low", fix: "Install photocell or motion-sensor fixtures; add timers to existing fixtures." }
+          { id: "bulbs", title: "Incandescent or CFL bulbs", desc: "Count fixtures still using incandescent or CFL bulbs. LEDs use about 85% less energy than incandescents.", savings: 80, severity: "med", fix: "Replace remaining incandescents and CFLs with ENERGY STAR LEDs. Many utilities offer free LEDs for income-eligible customers." },
+          { id: "exterior-lights", title: "Exterior lighting controls", desc: "Check if outdoor lights have timers, photocells, or motion sensors. Lights running all night waste energy.", savings: 25, severity: "low", fix: "Install photocell or motion sensor fixtures; add timers to existing fixtures." }
         ]
       },
       {
-        num: 5, title: "Appliances & Electronics",
-        sub: "Standby loads and major appliances",
-        method: "Identify plugged-in devices drawing standby power (game consoles, cable boxes, computers, chargers). Note appliance age and check for ENERGY STAR labels on major appliances.",
+        num: 6, title: "Appliances",
+        sub: "Major energy-using appliances",
+        method: "Inspect refrigerator age (sticker inside), check laundry and dishwasher habits with the resident, note any ENERGY STAR labels on major appliances.",
+        items: [
+          { id: "fridge-age", title: "Refrigerator age", desc: "Check fridge model and year (sticker inside). Pre-2001 refrigerators use 2 to 3 times more energy than current ENERGY STAR models.", savings: 110, severity: "hi", fix: "If pre-2001, prioritize replacement. Many utilities offer rebates for ENERGY STAR fridges; appliance recycling programs may pay for the old unit." },
+          { id: "dishwasher-use", title: "Dishwasher use practices", desc: "Ask about dishwasher habits. Running partial loads and using the heated dry cycle both waste energy.", savings: 30, severity: "low", fix: "Run only full loads. Turn off heated dry; let dishes air dry with door propped open." },
+          { id: "laundry-habits", title: "Laundry habits", desc: "Ask about wash temperature and dryer use. Washing in hot water uses up to 90% more energy than cold.", savings: 45, severity: "low", fix: "Wash in cold water when possible. Run full loads. Clean dryer lint filter after every load; check vent annually." }
+        ]
+      },
+      {
+        num: 7, title: "Water Heating",
+        sub: "Temp, insulation, fixtures",
+        method: "Check water heater temperature dial (DOE recommends 120 degrees F). Note tank age, presence of insulation blanket, and pipe insulation. Inspect kitchen and bath fixtures for low-flow fittings.",
+        items: [
+          { id: "wh-temp", title: "Water heater temperature", desc: "Tank set above 120 degrees F wastes energy and risks scalding. Tankless: same 120 degrees F recommendation.", savings: 40, severity: "low", fix: "Lower to 120 degrees F. Adult should adjust. Confirm setting after." },
+          { id: "wh-blanket", title: "Water heater insulation", desc: "Touch the side of the tank. If warm to the touch, the tank lacks an insulation blanket or has thin internal insulation.", savings: 35, severity: "low", fix: "Add an R-10+ water heater blanket ($25 to $40). Skip if tank is newer ENERGY STAR with built-in R-16+." },
+          { id: "low-flow", title: "Low-flow fixtures", desc: "Check showerheads and faucet aerators. Pre-1992 fixtures may use 2 to 3 times more water than current low-flow.", savings: 50, severity: "med", fix: "Replace with WaterSense-certified showerheads (1.5 GPM) and faucet aerators (1.0 to 1.5 GPM)." }
+        ]
+      },
+      {
+        num: 8, title: "Phantom Loads",
+        sub: "Standby draw from plugged-in electronics", doe: false,
+        method: "Identify devices drawing power even when off or idle. The resident can test with a plug-in power meter if available, or you can estimate from common offenders listed below.",
         items: [
           { id: "console", title: "Game console standby", desc: "Console plugged in 24/7 with instant-on or rest mode enabled.", savings: 25, severity: "low", fix: "Plug into a switchable power strip; switch off when not playing." },
           { id: "charger", title: "Idle chargers", desc: "Phone, laptop, and device chargers left plugged into wall with nothing attached.", savings: 5, severity: "low", fix: "Unplug chargers when not actively charging." },
-          { id: "microwave", title: "Microwave clock standby", desc: "Glowing clock display = continuous standby draw. Adds up annually.", savings: 10, severity: "low", fix: "Use a switchable power strip if the clock isn't needed." },
-          { id: "computer", title: "Computer sleep mode", desc: "Desktop/laptop on sleep instead of full shutdown overnight.", savings: 40, severity: "low", fix: "Fully shut down overnight; use a smart power strip." },
-          { id: "cable", title: "Cable box / streaming devices", desc: "Cable boxes draw significant standby power even when TV is off.", savings: 30, severity: "low", fix: "Switchable power strip for the TV/cable cluster." },
-          { id: "fridge-age", title: "Refrigerator age", desc: "Check fridge model/year (sticker inside). Pre-2001 refrigerators use 2-3x more energy than current ENERGY STAR models.", savings: 110, severity: "hi", fix: "If pre-2001, prioritize replacement. Many utilities offer rebates for ENERGY STAR fridges; appliance recycling programs may pay for the old unit." }
-        ]
-      },
-      {
-        num: 6, title: "Water Heating",
-        sub: "Temp setting, insulation, fixtures",
-        method: "Check water heater temperature dial (DOE recommends 120°F). Note tank age, presence of insulation blanket, and pipe insulation. Inspect kitchen/bath fixtures for low-flow fittings.",
-        items: [
-          { id: "wh-temp", title: "Water heater temperature", desc: "Tank set above 120°F wastes energy and risks scalding. Tankless: same 120°F recommendation.", savings: 40, severity: "low", fix: "Lower to 120°F. Adult should adjust — confirm setting after." },
-          { id: "wh-blanket", title: "Water heater insulation", desc: "Touch the side of the tank. If warm to the touch, the tank lacks an insulation blanket or has thin internal insulation.", savings: 35, severity: "low", fix: "Add an R-10+ water heater blanket ($25-$40). Skip if tank is newer ENERGY STAR with built-in R-16+." },
-          { id: "low-flow", title: "Low-flow fixtures", desc: "Check showerheads and faucet aerators. Pre-1992 fixtures may use 2-3x more water than current low-flow.", savings: 50, severity: "med", fix: "Replace with WaterSense-certified showerheads (1.5 GPM) and faucet aerators (1.0-1.5 GPM)." }
+          { id: "microwave", title: "Microwave clock standby", desc: "Glowing clock display equals continuous standby draw. Adds up annually.", savings: 10, severity: "low", fix: "Use a switchable power strip if the clock is not needed." },
+          { id: "computer", title: "Computer sleep mode", desc: "Desktop or laptop on sleep instead of full shutdown overnight.", savings: 40, severity: "low", fix: "Fully shut down overnight; use a smart power strip." },
+          { id: "cable", title: "Cable box or streaming devices", desc: "Cable boxes draw significant standby power even when TV is off.", savings: 30, severity: "low", fix: "Switchable power strip for the TV and cable cluster." }
         ]
       }
     ],
     commercial: [
       {
-        num: 1, title: "Building Envelope",
-        sub: "Exterior doors, windows, loading docks, roof",
-        method: "Walk the perimeter. Document door auto-closers, weatherstripping condition at customer-facing entries, single-pane vs double-pane windows, dock seals if applicable.",
+        num: 1, title: "Air Sealing",
+        sub: "Seal the leaks that waste conditioned air",
+        method: "Walk the perimeter and all exterior-facing doors. Check auto-closers, weatherstripping, and any penetrations around utility lines or dock openings.",
         items: [
-          { id: "c-entry-door", title: "Entry door air sealing", desc: "Check customer entrances for working auto-closers and intact weatherstripping. Propped-open doors during heating/cooling season = major loss.", savings: 280, severity: "hi", fix: "Repair or install auto-closers; replace weatherstripping; consider vestibule for high-traffic entries." },
-          { id: "c-windows", title: "Single-pane windows", desc: "Inventory window stock. Pre-1990s commercial buildings often have single-pane storefronts.", savings: 400, severity: "hi", fix: "Apply commercial-grade low-e window film as interim measure; budget for double-pane replacement." },
-          { id: "c-loading-dock", title: "Loading dock seals (if applicable)", desc: "If site has a loading dock, inspect dock shelters, seals, and bumpers for gaps.", savings: 350, severity: "med", fix: "Repair or replace dock seals and shelters; add strip curtains at frequently-open doorways." }
+          { id: "c-entry-door", title: "Entry door air sealing", desc: "Check customer entrances for working auto-closers and intact weatherstripping. Propped-open doors during heating or cooling season equal major loss.", savings: 280, severity: "hi", fix: "Repair or install auto-closers; replace weatherstripping; consider vestibule for high-traffic entries." },
+          { id: "c-loading-dock", title: "Loading dock seals (if applicable)", desc: "If site has a loading dock, inspect dock shelters, seals, and bumpers for gaps.", savings: 350, severity: "med", fix: "Repair or replace dock seals and shelters; add strip curtains at frequently open doorways." },
+          { id: "c-utility-pens", title: "Utility penetrations and gaps", desc: "Walk the building perimeter looking for gaps around pipes, cables, vents entering the building.", savings: 120, severity: "med", fix: "Seal penetrations with appropriate caulk, foam, or fire-rated sealant." }
         ]
       },
       {
-        num: 2, title: "HVAC Systems",
-        sub: "Equipment, controls, scheduling",
-        method: "Inspect rooftop units (RTUs) or interior air handlers. Check filter condition. Locate thermostat / building management system (BMS) and verify occupancy-based schedules. Walk-through during off-hours if possible.",
+        num: 2, title: "Building Envelope",
+        sub: "Windows, roof, exterior walls",
+        method: "Walk the perimeter and interior. Document window stock (single-pane vs double-pane), skylight condition, and any visible envelope damage.",
         items: [
-          { id: "c-filter", title: "HVAC filter maintenance", desc: "Inspect filters in air handlers and RTUs. Note last-changed date if visible. Commercial filters should be changed every 1-3 months.", savings: 180, severity: "med", fix: "Establish filter replacement schedule; set automatic reminders." },
-          { id: "c-schedule", title: "Occupancy schedule", desc: "Verify HVAC is scheduled to setback during off-hours, weekends, holidays. Many small commercial sites run 24/7 unnecessarily.", savings: 600, severity: "hi", fix: "Program thermostat / BMS for occupancy-based setbacks (typically 7-10°F). Largest single savings opportunity in many small commercial buildings." },
+          { id: "c-windows", title: "Single-pane windows", desc: "Inventory window stock. Pre-1990s commercial buildings often have single-pane storefronts.", savings: 400, severity: "hi", fix: "Apply commercial-grade low-e window film as interim measure; budget for double-pane replacement." },
+          { id: "c-roof-condition", title: "Roof and skylight condition", desc: "If visible from inside (water stains, light leaks around skylights) or safely accessible from outside, note roof condition and skylight seals.", savings: 150, severity: "med", fix: "Repair damaged roofing; reseal skylights; consider cool roof coating at next replacement." }
+        ]
+      },
+      {
+        num: 3, title: "Insulation",
+        sub: "Thermal envelope performance",
+        method: "Check accessible utility rooms, mechanical rooms, and above drop ceilings (if safe) for exposed uninsulated ductwork or hot water piping.",
+        items: [
+          { id: "c-pipe-insul", title: "Hot water pipe insulation", desc: "Inspect accessible hot water pipes. Uninsulated pipes lose heat continuously.", savings: 80, severity: "low", fix: "Install foam pipe insulation sleeves on all accessible hot water piping." },
+          { id: "c-duct-insul", title: "Duct insulation in unconditioned spaces", desc: "Inspect ductwork in attics, mechanical rooms, or above drop ceilings. Uninsulated metal ducts in unconditioned space waste significant energy.", savings: 180, severity: "med", fix: "Wrap accessible ductwork with R-6+ duct insulation." }
+        ]
+      },
+      {
+        num: 4, title: "Heating and Cooling Systems",
+        sub: "Equipment, controls, scheduling",
+        method: "Inspect rooftop units (RTUs) or interior air handlers. Check filter condition. Locate thermostat or building management system (BMS) and verify occupancy-based schedules. Walk through during off-hours if possible.",
+        items: [
+          { id: "c-filter", title: "HVAC filter maintenance", desc: "Inspect filters in air handlers and RTUs. Note last-changed date if visible. Commercial filters should be changed every 1 to 3 months.", savings: 180, severity: "med", fix: "Establish filter replacement schedule; set automatic reminders." },
+          { id: "c-schedule", title: "Occupancy schedule", desc: "Verify HVAC is scheduled to set back during off-hours, weekends, holidays. Many small commercial sites run 24/7 unnecessarily.", savings: 600, severity: "hi", fix: "Program thermostat or BMS for occupancy-based setbacks (typically 7 to 10 degrees F). Largest single savings opportunity in many small commercial buildings." },
           { id: "c-economizer", title: "Economizer operation", desc: "If RTUs are present, check economizer dampers (mechanical free cooling using outside air). Often broken or locked closed in older units.", savings: 320, severity: "med", fix: "Have HVAC contractor inspect and repair economizers; verify outdoor air dampers actuate properly." }
         ]
       },
       {
-        num: 3, title: "Lighting",
+        num: 5, title: "Lighting",
         sub: "Often the largest commercial opportunity",
         method: "Inventory fixture types: T12 fluorescent (older, magnetic ballast hum), T8 fluorescent (newer), CFL, LED, HID. Check for occupancy sensors in private offices, restrooms, storage. Check exterior lighting controls.",
         items: [
-          { id: "c-t12", title: "T12 fluorescent fixtures", desc: "T12 tubes are 1.5 inches in diameter, often with humming magnetic ballasts. Replaced by T8/T5/LED for ~40% savings.", savings: 800, severity: "hi", fix: "Retrofit T12 fixtures to LED tubes or full LED replacement fixtures. Most utility commercial rebate programs cover a significant portion of the cost." },
-          { id: "c-occ-sensors", title: "Missing occupancy sensors", desc: "Note rooms (offices, restrooms, storage, conference rooms) without occupancy sensors that should have them.", savings: 350, severity: "med", fix: "Install wall-switch occupancy sensors (~$25-$50 ea); many areas allow tool-free retrofit." },
-          { id: "c-exterior", title: "Exterior lighting controls", desc: "Verify parking lot, signage, and entry lighting on photocells or astronomical timers. Lights on during daytime = waste.", savings: 220, severity: "med", fix: "Photocells or programmable timers; convert HID parking lot fixtures to LED (large savings, often utility-rebated)." },
-          { id: "c-daylight", title: "Daylight harvesting opportunity", desc: "Note areas with significant natural light (windows, skylights) where overhead lights run unnecessarily.", savings: 180, severity: "low", fix: "Install daylight sensors that dim/turn off electric lights when sufficient natural light is present." }
+          { id: "c-t12", title: "T12 fluorescent fixtures", desc: "T12 tubes are 1.5 inches in diameter, often with humming magnetic ballasts. Replaced by T8/T5/LED for about 40% savings.", savings: 800, severity: "hi", fix: "Retrofit T12 fixtures to LED tubes or full LED replacement fixtures. Most utility commercial rebate programs cover a significant portion of the cost." },
+          { id: "c-occ-sensors", title: "Missing occupancy sensors", desc: "Note rooms (offices, restrooms, storage, conference rooms) without occupancy sensors that should have them.", savings: 350, severity: "med", fix: "Install wall-switch occupancy sensors ($25 to $50 each); many areas allow tool-free retrofit." },
+          { id: "c-exterior", title: "Exterior lighting controls", desc: "Verify parking lot, signage, and entry lighting on photocells or astronomical timers. Lights on during daytime equal waste.", savings: 220, severity: "med", fix: "Photocells or programmable timers; convert HID parking lot fixtures to LED (large savings, often utility-rebated)." },
+          { id: "c-daylight", title: "Daylight harvesting opportunity", desc: "Note areas with significant natural light (windows, skylights) where overhead lights run unnecessarily.", savings: 180, severity: "low", fix: "Install daylight sensors that dim or turn off electric lights when sufficient natural light is present." }
         ]
       },
       {
-        num: 4, title: "Plug Loads & Office Equipment",
-        sub: "Computers, monitors, printers, vending",
-        method: "Survey workstations: monitors on after-hours? Computers fully shut down? Printers/copiers with energy-save modes? Note vending machines, kitchenette appliances.",
+        num: 6, title: "Appliances and Refrigeration",
+        sub: "Major equipment: fridges, coolers, kitchen",
+        method: "If site has commercial refrigeration (restaurant, corner store, community fridge, break room): inspect door gaskets, defrost cycles, condenser coils, strip curtains on walk-ins. Note break room and kitchen appliance condition.",
         items: [
-          { id: "c-workstations", title: "Workstation after-hours shutdown", desc: "Walk through during off-hours (or ask). Document workstations left on. Each idle desktop+monitor = $60-$120/year.", savings: 450, severity: "med", fix: "Establish shutdown protocol; deploy advanced power strips at workstations; enable computer power management." },
-          { id: "c-vending", title: "Vending machine controls", desc: "Note any vending machines without occupancy-based controls (VendingMiser or similar).", savings: 120, severity: "low", fix: "Install vending machine occupancy controllers (~$200, payback under 2 years)." },
-          { id: "c-kitchen", title: "Break room / kitchenette", desc: "Check refrigerator age (pre-2001?), water cooler always on, coffee maker left running.", savings: 95, severity: "low", fix: "ENERGY STAR fridge replacement; timers on coffee makers; switchable strips." }
+          { id: "c-kitchen", title: "Kitchen or break room appliances", desc: "Check refrigerator age (pre-2001?), water cooler always on, coffee maker left running.", savings: 95, severity: "low", fix: "ENERGY STAR fridge replacement; timers on coffee makers; switchable strips." },
+          { id: "c-gaskets", title: "Refrigeration door gaskets", desc: "Inspect gaskets on coolers, freezers, walk-ins. Worn or torn gaskets equal constant cold air loss.", savings: 280, severity: "hi", fix: "Replace gaskets (often DIY); check magnetic seal with a dollar bill test." },
+          { id: "c-walk-in", title: "Walk-in strip curtains", desc: "Walk-in coolers and freezers without strip curtains lose substantial cold air on each entry.", savings: 220, severity: "med", fix: "Install strip curtains ($100 to $300); pays back in months." },
+          { id: "c-coils", title: "Condenser coil cleanliness", desc: "Refrigeration condenser coils (back or top of unit) clogged with dust make the compressor work harder.", savings: 150, severity: "med", fix: "Establish quarterly coil-cleaning schedule." }
         ]
       },
       {
-        num: 5, title: "Water Heating",
+        num: 7, title: "Water Heating",
         sub: "Temp, recirc, fixtures",
         method: "Locate water heater(s). Check temperature setting, recirculation pump scheduling (if present), insulation, and fixture flow rates in restrooms and kitchens.",
         items: [
-          { id: "c-wh-temp", title: "Water heater temperature", desc: "DOE recommends 120°F for most commercial sites. Some kitchens (health code) require higher.", savings: 90, severity: "low", fix: "Lower to 120°F where allowed by code/use; insulate tank if uninsulated." },
+          { id: "c-wh-temp", title: "Water heater temperature", desc: "DOE recommends 120 degrees F for most commercial sites. Some kitchens (health code) require higher.", savings: 90, severity: "low", fix: "Lower to 120 degrees F where allowed by code or use; insulate tank if uninsulated." },
           { id: "c-recirc", title: "Hot water recirc pump schedule", desc: "If building has a recirc loop, check if pump runs 24/7 or is scheduled.", savings: 180, severity: "med", fix: "Schedule pump to occupied hours only; add aquastat or demand-based control." },
           { id: "c-fixtures", title: "Restroom fixtures", desc: "Inventory restroom faucet aerators and (if applicable) showers. Pre-1992 fixtures or commercial-grade auto-faucets that run too long.", savings: 130, severity: "low", fix: "WaterSense aerators (0.5 GPM in restrooms); adjust auto-faucet flow duration." }
         ]
       },
       {
-        num: 6, title: "Refrigeration & Specialty (if applicable)",
-        sub: "Coolers, freezers, kitchen equipment",
-        method: "If site has commercial refrigeration (restaurant, corner store, community fridge): inspect door gaskets, defrost cycles, condenser coils, strip curtains on walk-ins.",
+        num: 8, title: "Phantom Loads and Office Equipment",
+        sub: "Standby draw from idle equipment", doe: false,
+        method: "Survey workstations: monitors on after-hours? Computers fully shut down? Printers or copiers with energy-save modes? Note vending machines and other continuously-powered equipment.",
         items: [
-          { id: "c-gaskets", title: "Refrigeration door gaskets", desc: "Inspect gaskets on coolers, freezers, walk-ins. Worn or torn gaskets = constant cold-air loss.", savings: 280, severity: "hi", fix: "Replace gaskets (often DIY); check magnetic seal with a dollar bill test." },
-          { id: "c-walk-in", title: "Walk-in strip curtains", desc: "Walk-in coolers/freezers without strip curtains lose substantial cold air on each entry.", savings: 220, severity: "med", fix: "Install strip curtains ($100-$300); pays back in months." },
-          { id: "c-coils", title: "Condenser coil cleanliness", desc: "Refrigeration condenser coils (back/top of unit) clogged with dust = compressor works harder.", savings: 150, severity: "med", fix: "Establish quarterly coil-cleaning schedule." }
+          { id: "c-workstations", title: "Workstation after-hours shutdown", desc: "Walk through during off-hours (or ask). Document workstations left on. Each idle desktop and monitor equals $60 to $120 per year.", savings: 450, severity: "med", fix: "Establish shutdown protocol; deploy advanced power strips at workstations; enable computer power management." },
+          { id: "c-vending", title: "Vending machine controls", desc: "Note any vending machines without occupancy-based controls (VendingMiser or similar).", savings: 120, severity: "low", fix: "Install vending machine occupancy controllers (around $200, payback under 2 years)." }
         ]
       }
     ]
@@ -1208,10 +1341,14 @@
     container.innerHTML = '';
     steps.forEach((step, idx) => {
       const stepEl = document.createElement('div');
-      stepEl.className = 'doe-step' + (idx === 0 ? ' open' : '');
+      const isPhantom = step.doe === false;
+      stepEl.className = 'doe-step' + (idx === 0 ? ' open' : '') + (isPhantom ? ' phantom-step' : '');
+      const numLabel = isPhantom ? '⚡' : step.num;
+      const ribbon = isPhantom ? '<div class="phantom-ribbon">Bonus · Not part of the DOE 7</div>' : '';
       stepEl.innerHTML = `
+        ${ribbon}
         <div class="doe-step-header" data-step="${step.num}">
-          <div class="doe-step-num">${step.num}</div>
+          <div class="doe-step-num">${numLabel}</div>
           <div class="doe-step-title">${step.title}<small>${step.sub}</small></div>
           <div class="doe-step-progress" data-step-progress="${step.num}">0/${step.items.length}</div>
           <div class="doe-step-toggle">+</div>
@@ -1285,33 +1422,35 @@
     document.getElementById('savingsNum').textContent = '$' + total.toLocaleString();
     let msg = "Start the walk-through above. Tap each item you find or confirm.";
     if (count === 0) msg = "Start the walk-through above. Tap each item you find or confirm.";
-    else if (count < 3) msg = `${count} finding${count===1?'':'s'} so far. Keep going through each DOE step.`;
-    else if (count < 6) msg = `Solid progress — ${count} findings logged. Don't skip steps.`;
-    else if (count < 10) msg = `${count} findings. You're producing a substantive report.`;
+    else if (count < 4) msg = `${count} finding${count===1?'':'s'} so far. Keep going through each DOE assessment area.`;
+    else if (count < 8) msg = `Solid progress — ${count} findings logged. Don't skip areas.`;
+    else if (count < 12) msg = `${count} findings. You're producing a substantive report.`;
     else msg = `${count} findings — comprehensive assessment. Generate the report below when complete.`;
     document.getElementById('summaryMsg').textContent = msg;
 
-    // Per-step progress + coverage dots + ready state
-    let stepsCovered = 0;
+    // Per-step progress + coverage dots + ready state (DOE-only)
+    let doeStepsCovered = 0;
     if (mode) {
       ASSESSMENT_DATA[mode].forEach(step => {
         const checkedInStep = step.items.filter(it => findings[it.id]).length;
         const el = document.querySelector(`[data-step-progress="${step.num}"]`);
         if (el) el.textContent = `${checkedInStep}/${step.items.length}`;
-        // Update coverage dot
-        const dot = document.querySelector(`.step-dot[data-step="${step.num}"]`);
-        if (dot) dot.classList.toggle('covered', checkedInStep > 0);
-        if (checkedInStep > 0) stepsCovered++;
+        const isDoe = step.doe !== false;
+        if (isDoe) {
+          const dot = document.querySelector(`.step-dot[data-step="${step.num}"]`);
+          if (dot) dot.classList.toggle('covered', checkedInStep > 0);
+          if (checkedInStep > 0) doeStepsCovered++;
+        }
       });
     }
 
-    // Ready state: all 6 DOE steps have at least one finding
+    // Ready state: all 7 DOE areas have at least one finding
     const reportCard = document.getElementById('reportCard');
     if (reportCard) {
-      const isReady = stepsCovered === 6;
+      const isReady = doeStepsCovered === 7;
       reportCard.classList.toggle('ready', isReady);
-      if (isReady && count >= 6) {
-        document.getElementById('summaryMsg').textContent = `🏁 All 6 DOE steps covered — ${count} findings logged. You're ready to finish and deliver the report.`;
+      if (isReady) {
+        document.getElementById('summaryMsg').textContent = `🏁 All 7 DOE assessment areas covered — ${count} findings logged. You're ready to finish and deliver the report.`;
       }
     }
   }
@@ -1443,6 +1582,9 @@
       team: document.getElementById('a-team').value.trim(),
       consent: document.getElementById('c-consent').checked,
       shareYGG: document.getElementById('c-share').checked,
+      occupantPositives: document.getElementById('occupant-positives').value.trim(),
+      occupantRecommendations: document.getElementById('occupant-recommendations').value.trim(),
+      occupantOther: document.getElementById('occupant-other').value.trim(),
       date: new Date().toLocaleDateString('en-US', { year:'numeric', month:'long', day:'numeric' }),
       assessmentId: 'YEAP-' + (mode === 'residential' ? 'R' : 'C') + '-' + Date.now().toString(36).toUpperCase()
     };
@@ -1483,6 +1625,12 @@
   .next-steps { background: #fff; border-left: 5px solid #95c11f; padding: 14px 18px; margin-top: 20px; border-radius: 4px; }
   .next-steps h3 { margin-top: 0; font-size: 16px; color: #1f5e54; }
   .next-steps li { margin-bottom: 6px; font-size: 13.5px; }
+  .occupant-block { background: #faf5e1; border: 2px solid #2d8073; border-radius: 10px; padding: 16px 18px; margin-top: 22px; }
+  .occupant-block h3 { margin-top: 0; color: #1f5e54; font-size: 17px; }
+  .occupant-block .sub { font-size: 12px; color: #555; margin-bottom: 10px; font-style: italic; }
+  .occupant-block .occ-item { margin-top: 10px; }
+  .occupant-block .occ-item strong { display: block; color: #2d8073; font-size: 13.5px; margin-bottom: 3px; }
+  .occupant-block .occ-item p { font-size: 13.5px; white-space: pre-wrap; margin: 0; }
   .ej-note { background: #1f5e54; color: #fff; padding: 14px 18px; border-radius: 10px; margin-top: 22px; font-size: 13px; line-height: 1.55; }
   .footer-block { border-top: 2px solid #f0e9c9; margin-top: 26px; padding-top: 14px; font-size: 11.5px; color: #666; text-align: center; }
   .print-btn { background: #95c11f; color: #1a2418; border: none; padding: 11px 20px; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; }
@@ -1515,7 +1663,7 @@
   <div class="savings-banner">
     <div style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em;">Estimated Annual Savings</div>
     <div class="big">$${total.toLocaleString()}</div>
-    <div style="font-size: 13px; opacity: 0.9;">Based on ${findingsList.length} finding${findingsList.length === 1 ? '' : 's'} across the DOE 6-step assessment</div>
+    <div style="font-size: 13px; opacity: 0.9;">Based on ${findingsList.length} finding${findingsList.length === 1 ? '' : 's'} across the DOE 7-area assessment</div>
   </div>
   ${ctx.climate ? `<div class="climate-callout">
     <strong>Priorities for your climate zone</strong>
@@ -1529,11 +1677,19 @@
   </div>` : ''}
   ${Object.keys(byStep).sort((a,b) => parseInt(a)-parseInt(b)).map(num => {
     const s = byStep[num];
-    return `<h2>DOE Step ${num}: ${s.title} (${s.items.length})</h2>
+    const heading = parseInt(num) === 8 ? `⚡ Phantom Loads: ${s.title.replace(/^Phantom Loads(?: and Office Equipment)?/i, '').replace(/^[: ]+/, '') || 'Standby draw'} (${s.items.length})` : `DOE Step ${num}: ${s.title} (${s.items.length})`;
+    return `<h2>${heading}</h2>
     <table class="findings"><thead><tr><th>Finding</th><th>Recommended Action</th><th style="text-align:right">Est. Savings</th></tr></thead><tbody>
     ${s.items.map(f => `<tr><td class="title-cell"><strong>${f.title}</strong>${f.notes ? `<span class="notes">Field note: ${f.notes.replace(/</g,'&lt;')}</span>` : ''}</td><td class="fix-cell">${f.fix}</td><td class="sav-cell">$${f.savings}/yr</td></tr>`).join('')}
     </tbody></table>`;
   }).join('')}
+  ${(ctx.occupantPositives || ctx.occupantRecommendations || ctx.occupantOther) ? `<div class="occupant-block">
+    <h3>📝 Extra Notes to Share</h3>
+    <div class="sub">These notes do not affect the estimated savings number above. They are extra observations and ideas from your YEAP assessor.</div>
+    ${ctx.occupantPositives ? `<div class="occ-item"><strong>👏 What you're already doing well</strong><p>${ctx.occupantPositives.replace(/</g,'&lt;')}</p></div>` : ''}
+    ${ctx.occupantRecommendations ? `<div class="occ-item"><strong>💡 Extra tips and ideas</strong><p>${ctx.occupantRecommendations.replace(/</g,'&lt;')}</p></div>` : ''}
+    ${ctx.occupantOther ? `<div class="occ-item"><strong>Other observations</strong><p>${ctx.occupantOther.replace(/</g,'&lt;')}</p></div>` : ''}
+  </div>` : ''}
   <div class="next-steps">
     <h3>Resources &amp; Next Steps</h3>
     <ol>
@@ -1592,7 +1748,8 @@ ${climatePriorities[ctx.climate]}
 
 `;
     findingsList.forEach((f, i) => {
-      body += `${i+1}. ${f.title} (DOE Step ${f.stepNum}: ${f.stepTitle})
+      const areaLabel = f.stepNum === 8 ? `Phantom Loads: ${f.stepTitle}` : `DOE Step ${f.stepNum}: ${f.stepTitle}`;
+      body += `${i+1}. ${f.title} (${areaLabel})
 `;
       body += `   Recommended action: ${f.fix}
 `;
@@ -1603,6 +1760,24 @@ ${climatePriorities[ctx.climate]}
       body += `
 `;
     });
+    if (ctx.occupantPositives || ctx.occupantRecommendations || ctx.occupantOther) {
+      body += `--- EXTRA NOTES TO SHARE (do not affect savings estimate) ---
+`;
+      if (ctx.occupantPositives) body += `
+What you're already doing well:
+${ctx.occupantPositives}
+`;
+      if (ctx.occupantRecommendations) body += `
+Extra tips and ideas:
+${ctx.occupantRecommendations}
+`;
+      if (ctx.occupantOther) body += `
+Other observations:
+${ctx.occupantOther}
+`;
+      body += `
+`;
+    }
     body += `--- NATIONAL RESOURCES ---
 `;
     body += `• DOE Weatherization Assistance Program (free, income-eligible): energy.gov/scep/wap
@@ -1646,8 +1821,46 @@ younggiftedgreen.org`;
   });
 
   document.getElementById('finishBtn').addEventListener('click', () => {
-    document.getElementById('reportCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
-    setTimeout(() => document.getElementById('viewReportBtn').click(), 350);
+    const ctx = getContext();
+    const list = Object.values(findings);
+    if (!ctx.consent || !ctx.resident || !ctx.email) {
+      showStatus('⚠️ Complete consent, resident info, and email first.', true);
+      document.getElementById('consent').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+    if (list.length === 0) {
+      showStatus('⚠️ Log at least one finding first.', true);
+      document.getElementById('assessment').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    // Step 1: Open the printable report in a new tab with Print dialog triggered automatically.
+    // The resident/assessor can then "Save as PDF" from the native Print dialog.
+    const reportHtml = buildReportHTML(ctx, list);
+    // Inject auto-print trigger so the native print dialog appears automatically.
+    const autoPrintScript = `<script>window.addEventListener('load', function() { setTimeout(function(){ window.print(); }, 600); });<\/script>`;
+    const htmlWithPrint = reportHtml.replace('</body>', autoPrintScript + '</body>');
+    const reportWindow = window.open('', '_blank');
+    if (!reportWindow) {
+      showStatus('⚠️ Pop-up blocked. Allow pop-ups for this site, then tap Finish again.', true);
+      return;
+    }
+    reportWindow.document.open();
+    reportWindow.document.write(htmlWithPrint);
+    reportWindow.document.close();
+
+    // Step 2: After a short delay (so the print dialog opens first), launch mailto with both recipients.
+    const total = list.reduce((s, f) => s + f.savings, 0);
+    const sub = `YEAP ${ctx.mode === 'commercial' ? 'Commercial' : 'Residential'} Energy Report — Est. $${total.toLocaleString()}/yr savings`;
+    const yggCc = 'info@younggiftedgreen.org';
+    const emailBody = buildEmailBody(ctx, list) + `\n\n[A PDF of this report was generated in a separate tab. Please attach the saved PDF to this email before sending.]`;
+    const mailto = `mailto:${encodeURIComponent(ctx.email)}?cc=${encodeURIComponent(yggCc)}&subject=${encodeURIComponent(sub)}&body=${encodeURIComponent(emailBody)}`;
+
+    setTimeout(() => {
+      window.location.href = mailto;
+    }, 1500);
+
+    showStatus('✓ Report tab opened with Print dialog. Save as PDF. Your email draft (to resident + YGG) will open in a moment — attach the saved PDF and send.');
   });
 
   document.getElementById('emailReportBtn').addEventListener('click', () => {
